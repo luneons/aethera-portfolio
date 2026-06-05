@@ -92,7 +92,8 @@ export default function Hero() {
             </button>
             <a
               href={profile.cvFile}
-              download
+              target="_blank"
+              rel="noreferrer"
               className="btn-ghost"
             >
               <FiDownload /> Download CV
@@ -124,7 +125,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mx-auto"
+          className="relative mx-auto"
         >
           <Tilt
             glareEnable
@@ -133,7 +134,7 @@ export default function Hero() {
             glarePosition="all"
             tiltMaxAngleX={10}
             tiltMaxAngleY={10}
-            className="animate-float"
+            className="relative z-10 animate-float"
           >
             <div
               className="relative h-64 w-64 sm:h-72 sm:w-72"

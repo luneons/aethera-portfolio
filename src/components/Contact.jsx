@@ -108,7 +108,7 @@ export default function Contact() {
                 <a href={`mailto:${contact.email}`} className="btn-ghost w-full">
                   <FiMail size={18} /> Kirim Email
                 </a>
-                <a href={profile.cvFile} download className="btn-ghost w-full">
+                <a href={profile.cvFile} target="_blank" rel="noreferrer" className="btn-ghost w-full">
                   <FiDownload size={18} /> Download CV
                 </a>
               </div>

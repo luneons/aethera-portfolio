@@ -3,7 +3,7 @@ export const experiences = [
   {
     role: 'Founder & Fullstack Developer',
     company: 'AETHERA',
-    period: 'Juni 2025 — Sekarang',
+    period: 'Mei 2026 — Sekarang',
     description:
       'Mendirikan dan memimpin AETHERA — organisasi developer yang berfokus membangun produk digital modern, dari aplikasi SaaS, e-commerce, hingga sistem manajemen berbasis web menggunakan Next.js, React, Node.js, dan TypeScript.',
     highlights: [
@@ -11,6 +11,19 @@ export const experiences = [
       'Merancang arsitektur & membangun produk fullstack end-to-end',
       'Mengelola project, deployment & infrastruktur cloud',
       'Membangun brand & portfolio produk digital',
+    ],
+  },
+  {
+    role: 'Fullstack Engineer',
+    company: 'PT. Zero One',
+    period: 'Januari 2026 — Sekarang',
+    description:
+      'Membangun dan mengembangkan aplikasi web fullstack modern menggunakan Next.js, React, Node.js, dan TypeScript untuk kebutuhan produk dan klien perusahaan.',
+    highlights: [
+      'Mengembangkan fitur fullstack end-to-end',
+      'Merancang arsitektur API dan integrasi database',
+      'Kolaborasi tim dalam pengembangan produk digital',
+      'Menerapkan best practice CI/CD dan deployment',
     ],
   },
   {
@@ -24,19 +37,6 @@ export const experiences = [
       'Membuat program internal & dashboard admin',
       'Mengintegrasikan komponen modern berbasis React',
       'Membantu kebutuhan operasional & mengembangkan sistem berbasis web',
-    ],
-  },
-  {
-    role: 'Web Developer',
-    company: 'CV. Momo Coffee',
-    period: 'Juli 2022 — November 2023',
-    description:
-      'Membuat website penyimpanan untuk perusahaan dan melakukan pemeliharaan program agar sistem tetap berjalan dengan baik.',
-    highlights: [
-      'Membuat website internal perusahaan',
-      'Mengelola fitur penyimpanan data',
-      'Melakukan maintenance program',
-      'Membantu proses kerja perusahaan menjadi lebih rapi',
     ],
   },
   {

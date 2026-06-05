@@ -29,7 +29,7 @@ export const profile = {
     github: 'https://github.com/luneons',
     linkedin: 'https://www.linkedin.com/in/andy-siswanto-71a983215/',
   },
-  cvFile: '/BARU CV ANDY.pdf',
+  cvFile: '/cv.html',
 };
 
 export const stats = [
