@@ -42,7 +42,7 @@ export default function App() {
         <ScrollLine />
         <MusicPlayer ref={musicRef} />
         <Navbar />
-        <main>
+        <main className="relative z-[2]">
           <Hero />
           <About />
           <Skills />
