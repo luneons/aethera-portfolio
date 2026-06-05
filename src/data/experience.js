@@ -65,14 +65,6 @@ export const education = [
     description:
       'Mempelajari dasar-dasar sistem informasi, pemrograman, database, analisis sistem, web programming, manajemen proyek sistem informasi, dan pengembangan aplikasi berbasis teknologi informasi.',
   },
-  {
-    institution: 'SMAN 1 Polanharjo',
-    program: 'IPS',
-    period: '2013 — 2016',
-    degree: 'SMA',
-    gpa: null,
-    description: '',
-  },
 ];
 
 // Sertifikasi & penghargaan.

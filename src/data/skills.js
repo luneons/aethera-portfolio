@@ -4,6 +4,7 @@ export const skillCategories = [
     title: 'Frontend',
     description: 'React, Next.js, UI modern & responsif',
     icon: 'layout',
+    image: '/frontend-clean.png',
     skills: [
       { name: 'React', level: 92 },
       { name: 'Next.js', level: 90 },
@@ -16,6 +17,7 @@ export const skillCategories = [
     title: 'Backend',
     description: 'Node.js, API, arsitektur server',
     icon: 'server',
+    image: '/backend-clean.png',
     skills: [
       { name: 'Node.js', level: 88 },
       { name: 'Express.js', level: 86 },
@@ -28,6 +30,7 @@ export const skillCategories = [
     title: 'Database',
     description: 'SQL & NoSQL, ORM, data modeling',
     icon: 'database',
+    image: '/database-clean.png',
     skills: [
       { name: 'PostgreSQL', level: 85 },
       { name: 'MySQL', level: 88 },
@@ -39,6 +42,7 @@ export const skillCategories = [
     title: 'DevOps & Tools',
     description: 'Deployment, CI/CD, version control',
     icon: 'tools',
+    image: '/devops-clean.png',
     skills: [
       { name: 'Git & GitHub', level: 90 },
       { name: 'Docker', level: 80 },
@@ -50,6 +54,7 @@ export const skillCategories = [
     title: 'Soft Skill',
     description: 'Leadership, communication, problem solving',
     icon: 'users',
+    image: '/soft-skill-clean.png',
     skills: [
       { name: 'Communication', level: 88 },
       { name: 'Teamwork', level: 90 },
