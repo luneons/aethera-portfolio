@@ -46,7 +46,7 @@ export default function Experience() {
 
         <div className="mx-auto w-full max-w-5xl px-6">
           <div className="mb-6 text-center">
-            <span className="chip mb-2 border-crimson/40 text-crimson">
+            <span data-connect className="chip mb-2 border-crimson/40 text-crimson">
               <span className="mr-2 h-1.5 w-1.5 rounded-full bg-crimson animate-pulse-glow" />
               Battle Chronicle
             </span>

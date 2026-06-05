@@ -71,7 +71,7 @@ export default function About() {
       <div className="absolute left-0 bottom-1/4 -z-10 h-64 w-64 rounded-full bg-neon/5 blur-[120px]" />
 
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeading label="Dossier" title="Character Profile" />
+        <SectionHeading label="Dossier" title="Character Profile" connectThreshold="0.42" />
 
         <div className="grid items-start gap-6 lg:grid-cols-[1.4fr_1fr]">
           {/* === Panel kiri: Terminal bio + atribut — terlempar dari kiri === */}

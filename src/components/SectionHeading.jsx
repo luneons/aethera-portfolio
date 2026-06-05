@@ -1,11 +1,11 @@
 import Reveal from './Reveal'
 
 // Heading section dengan label kecil + judul gradient.
-export default function SectionHeading({ label, title, subtitle }) {
+export default function SectionHeading({ label, title, subtitle, connectThreshold = '0.55' }) {
   return (
     <Reveal className="mb-12 text-center">
       {label && (
-        <span className="chip mb-4 border-electric/30 text-neon">
+        <span data-connect={connectThreshold} className="chip mb-4 border-electric/30 text-neon">
           <span className="mr-2 h-1.5 w-1.5 rounded-full bg-neon animate-pulse-glow" />
           {label}
         </span>

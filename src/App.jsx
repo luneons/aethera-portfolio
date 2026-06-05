@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import CursorGlow from './components/CursorGlow'
 import CustomCursor from './components/CustomCursor'
 import ScrollProgress from './components/ScrollProgress'
+import ScrollLine from './components/ScrollLine'
 import DigitalRain from './components/DigitalRain'
 import BackToTop from './components/BackToTop'
 import EntranceGate from './components/EntranceGate'
@@ -38,6 +39,7 @@ export default function App() {
         <CursorGlow />
         {entered && <CustomCursor />}
         <ScrollProgress />
+        <ScrollLine />
         <MusicPlayer ref={musicRef} />
         <Navbar />
         <main>

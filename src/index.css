@@ -168,3 +168,18 @@ body {
   height: 1.6rem;
   filter: drop-shadow(0 0 14px rgba(0, 212, 255, 0.9));
 }
+
+/* Hide horizontal scrollbar for mission archive carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ScrollLine aura pulse at the tip */
+@keyframes aura-pulse {
+  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, 0) scale(1.8); opacity: 0.4; }
+}

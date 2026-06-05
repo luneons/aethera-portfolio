@@ -110,7 +110,7 @@ export default function Skills() {
 
         <div className="mx-auto w-full max-w-4xl px-6">
           <div className="mb-4 text-center">
-            <span className="chip mb-2 border-crimson/40 text-crimson">
+            <span data-connect className="chip mb-2 border-crimson/40 text-crimson">
               <span className="mr-2 h-1.5 w-1.5 rounded-full bg-crimson animate-pulse-glow" />
               Hero Select
             </span>
@@ -278,6 +278,18 @@ function HeroPanel({ power, heroAnchorRef, cat }) {
 
 // === Skill tree (kanan): node kategori + detail skill aktif ===
 function SkillTree({ active, setActive, cat, ActiveIcon, power, registerNode }) {
+  const [page, setPage] = useState(0)
+  const PER_PAGE = 5
+  const totalPages = Math.ceil(cat.skills.length / PER_PAGE)
+  const paged = cat.skills.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
+
+  // Reset page ketika kategori berubah.
+  const prevCat = useRef(cat.title)
+  if (prevCat.current !== cat.title) {
+    prevCat.current = cat.title
+    if (page !== 0) setPage(0)
+  }
+
   return (
     <div className="metal-card clip-corner relative z-10 flex flex-col p-3 sm:p-4">
       <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-crimson to-transparent" />
@@ -342,19 +354,41 @@ function SkillTree({ active, setActive, cat, ActiveIcon, power, registerNode }) 
             <ActiveIcon className="text-crimson" />
             <span className="truncate">{cat.title}</span>
           </span>
-          <span className="chip border-neon/40 text-neon">AVG {power}</span>
+          <span className="flex items-center gap-2">
+            <span className="chip border-neon/40 text-neon">AVG {power}</span>
+            {totalPages > 1 && (
+              <span className="flex items-center gap-1">
+                <button
+                  onClick={() => setPage((p) => Math.max(0, p - 1))}
+                  disabled={page === 0}
+                  className="border border-steel/50 bg-black/40 p-1 text-gray-400 transition-colors hover:border-crimson/50 hover:text-crimson disabled:opacity-30"
+                >
+                  <FiLayout size={0} className="hidden" />
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M8 2L4 6l4 4" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+                </button>
+                <span className="font-mono text-[10px] text-gray-500">{page + 1}/{totalPages}</span>
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                  disabled={page === totalPages - 1}
+                  className="border border-steel/50 bg-black/40 p-1 text-gray-400 transition-colors hover:border-crimson/50 hover:text-crimson disabled:opacity-30"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+                </button>
+              </span>
+            )}
+          </span>
         </div>
 
         <AnimatePresence mode="wait">
           <motion.ul
-            key={cat.title}
+            key={`${cat.title}-${page}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
             className="min-h-[164px] space-y-1.5"
           >
-            {cat.skills.map((s, i) => (
+            {paged.map((s, i) => (
               <motion.li
                 key={s.name}
                 initial={{ opacity: 0, y: 10 }}

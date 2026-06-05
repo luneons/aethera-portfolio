@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import {
@@ -7,6 +7,7 @@ import {
   FiTarget,
   FiZap,
   FiChevronRight,
+  FiChevronLeft,
 } from 'react-icons/fi'
 import { GiKatana } from 'react-icons/gi'
 import Reveal from './Reveal'
@@ -29,6 +30,7 @@ const statusColor = {
 export default function Projects() {
   const [filter, setFilter] = useState('Semua')
   const [active, setActive] = useState(null)
+  const scrollRef = useRef(null)
 
   const filtered = useMemo(
     () =>
@@ -37,6 +39,13 @@ export default function Projects() {
         : projects.filter((p) => p.category === filter),
     [filter],
   )
+
+  const scroll = (dir) => {
+    const el = scrollRef.current
+    if (!el) return
+    const amount = 340
+    el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
+  }
 
   return (
     <section id="projects" className="relative py-24">
@@ -47,6 +56,7 @@ export default function Projects() {
           label="Mission Log"
           title="Mission Archive"
           subtitle="Setiap project adalah misi yang diselesaikan. Pilih file misi untuk membuka detail operasi."
+          connectThreshold="0.72"
         />
 
         {/* Filter */}
@@ -66,22 +76,52 @@ export default function Projects() {
           ))}
         </Reveal>
 
-        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => (
-              <motion.div
-                key={p.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: i * 0.04 }}
-              >
-                <MissionCard project={p} onOpen={() => setActive(p)} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Carousel wrapper with arrows */}
+        <div className="relative">
+          {/* Arrow kiri */}
+          <button
+            onClick={() => scroll('left')}
+            aria-label="Scroll kiri"
+            className="absolute -left-4 top-1/2 z-20 -translate-y-1/2 border border-steel/50 bg-base-800/90 p-2 text-gray-300 backdrop-blur transition-all hover:border-crimson/60 hover:text-crimson hover:shadow-glow-crimson sm:-left-5"
+            style={{ clipPath: 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)' }}
+          >
+            <FiChevronLeft size={20} />
+          </button>
+
+          {/* Arrow kanan */}
+          <button
+            onClick={() => scroll('right')}
+            aria-label="Scroll kanan"
+            className="absolute -right-4 top-1/2 z-20 -translate-y-1/2 border border-steel/50 bg-base-800/90 p-2 text-gray-300 backdrop-blur transition-all hover:border-crimson/60 hover:text-crimson hover:shadow-glow-crimson sm:-right-5"
+            style={{ clipPath: 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)' }}
+          >
+            <FiChevronRight size={20} />
+          </button>
+
+          <motion.div
+            ref={scrollRef}
+            layout
+            className="flex gap-5 overflow-x-auto pb-4 pt-2 scrollbar-hide snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none' }}
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p, i) => (
+                <motion.div
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, x: 80, rotate: 4 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                  exit={{ opacity: 0, x: -80, rotate: -4 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: i * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
+                  className="w-[300px] flex-shrink-0 snap-start sm:w-[320px]"
+                >
+                  <MissionCard project={p} onOpen={() => setActive(p)} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
 
       <MissionModal active={active} onClose={() => setActive(null)} />
