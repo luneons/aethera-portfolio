@@ -7,6 +7,7 @@ export const profile = {
     'Fullstack Developer',
     'Next.js & React Engineer',
     'Node.js Backend Developer',
+    'AI & Prompt Engineer',
     'TypeScript Enthusiast',
   ],
   location: 'Klaten, Jawa Tengah, Indonesia',

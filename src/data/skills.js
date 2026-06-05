@@ -51,6 +51,18 @@ export const skillCategories = [
     ],
   },
   {
+    title: 'AI & Prompt Engineering',
+    description: 'AI integration, LLM, prompt design',
+    icon: 'tools',
+    image: '/AiEnginer-clean.png',
+    skills: [
+      { name: 'Prompt Engineering', level: 90 },
+      { name: 'AI Integration (LLM API)', level: 86 },
+      { name: 'OpenAI / Gemini / Claude', level: 85 },
+      { name: 'RAG & AI Workflows', level: 80 },
+    ],
+  },
+  {
     title: 'Soft Skill',
     description: 'Leadership, communication, problem solving',
     icon: 'users',
@@ -81,4 +93,6 @@ export const techBadges = [
   'Docker',
   'Git',
   'PHP',
+  'AI / LLM',
+  'Prompt Engineering',
 ]
