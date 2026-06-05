@@ -59,7 +59,7 @@ export default function ScrollLine() {
 
   return (
     <div
-      className="pointer-events-none fixed left-0 top-0 z-10 hidden h-screen w-full lg:block"
+      className="pointer-events-none fixed left-0 top-0 z-[1] hidden h-screen w-full lg:block"
       aria-hidden="true"
     >
       {/* Track abu */}
