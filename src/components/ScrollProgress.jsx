@@ -23,12 +23,6 @@ export default function ScrollProgress() {
 
   return (
     <>
-      {/* Bar progress di atas */}
-      <motion.div
-        style={{ scaleX }}
-        className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left bg-gradient-to-r from-crimson via-red-500 to-neon shadow-glow-crimson"
-      />
-
       {/* Indikator persentase melingkar */}
       <motion.div
         initial={{ opacity: 0, scale: 0.6 }}
