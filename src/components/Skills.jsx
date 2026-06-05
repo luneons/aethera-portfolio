@@ -205,7 +205,7 @@ function ConnectorOverlay({ lines, box, active }) {
 
 // === Panel hero terpilih (kiri) — gambar berganti sesuai kategori aktif ===
 function HeroPanel({ power, heroAnchorRef, cat }) {
-  const img = cat.image || '/profile.jpg'
+  const img = cat.image || '/profile.webp'
   return (
     <div className="metal-card clip-corner relative z-10 flex flex-col overflow-hidden">
       <span className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-crimson to-transparent" />

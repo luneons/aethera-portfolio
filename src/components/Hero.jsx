@@ -146,7 +146,7 @@ export default function Hero() {
               <div className="metal-card clip-corner relative h-full w-full overflow-hidden p-1.5 shadow-glow-crimson">
                 <div className="clip-corner flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br from-base-700 to-base-900">
                   <img
-                    src="/profile.jpg"
+                    src="/profile.webp"
                     alt="Andy Siswanto A.B"
                     className="clip-corner h-full w-full object-cover"
                   />
