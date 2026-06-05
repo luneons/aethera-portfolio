@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import {
   FiX,
@@ -7,7 +7,6 @@ import {
   FiTarget,
   FiZap,
   FiChevronRight,
-  FiChevronLeft,
 } from 'react-icons/fi'
 import { GiKatana } from 'react-icons/gi'
 import Reveal from './Reveal'
@@ -30,7 +29,7 @@ const statusColor = {
 export default function Projects() {
   const [filter, setFilter] = useState('Semua')
   const [active, setActive] = useState(null)
-  const scrollRef = useRef(null)
+  const sectionRef = useRef(null)
 
   const filtered = useMemo(
     () =>
@@ -40,88 +39,69 @@ export default function Projects() {
     [filter],
   )
 
-  const scroll = (dir) => {
-    const el = scrollRef.current
-    if (!el) return
-    const amount = 340
-    el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
-  }
+  // Scroll hijack: section tinggi, isi sticky, translateX terikat scroll vertikal.
+  const CARD_W = 340 // lebar card + gap
+  const totalScroll = filtered.length * CARD_W
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  })
+  const x = useTransform(scrollYProgress, [0, 1], [0, -totalScroll + (typeof window !== 'undefined' ? window.innerWidth * 0.6 : 600)])
 
   return (
-    <section id="projects" className="relative py-24">
-      <div className="absolute left-1/2 top-0 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-crimson/10 blur-[130px]" />
-      <FloatingKanji count={8} />
-      <div className="mx-auto max-w-6xl px-6">
-        <SectionHeading
-          label="Mission Log"
-          title="Mission Archive"
-          subtitle="Setiap project adalah misi yang diselesaikan. Pilih file misi untuk membuka detail operasi."
-          connectThreshold="0.72"
-        />
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative"
+      style={{ height: `${Math.max(150, filtered.length * 40)}vh` }}
+    >
+      <div className="sticky top-0 overflow-hidden py-16">
+        <div className="absolute left-1/2 top-0 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-crimson/10 blur-[130px]" />
+        <FloatingKanji count={8} />
+        <div className="mx-auto max-w-6xl px-6">
+          <SectionHeading
+            label="Mission Log"
+            title="Mission Archive"
+            subtitle="Setiap project adalah misi yang diselesaikan. Scroll untuk menjelajahi file misi."
+            connectThreshold="0.72"
+          />
 
-        {/* Filter */}
-        <Reveal className="mb-10 flex flex-wrap justify-center gap-2">
-          {projectCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`clip-corner px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                filter === cat
-                  ? 'bg-gradient-to-r from-crimson to-blood text-white shadow-glow'
-                  : 'metal-card text-gray-400 hover:text-white'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </Reveal>
-
-        {/* Carousel wrapper with arrows */}
-        <div className="relative">
-          {/* Arrow kiri */}
-          <button
-            onClick={() => scroll('left')}
-            aria-label="Scroll kiri"
-            className="absolute -left-4 top-1/2 z-20 -translate-y-1/2 border border-steel/50 bg-base-800/90 p-2 text-gray-300 backdrop-blur transition-all hover:border-crimson/60 hover:text-crimson hover:shadow-glow-crimson sm:-left-5"
-            style={{ clipPath: 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)' }}
-          >
-            <FiChevronLeft size={20} />
-          </button>
-
-          {/* Arrow kanan */}
-          <button
-            onClick={() => scroll('right')}
-            aria-label="Scroll kanan"
-            className="absolute -right-4 top-1/2 z-20 -translate-y-1/2 border border-steel/50 bg-base-800/90 p-2 text-gray-300 backdrop-blur transition-all hover:border-crimson/60 hover:text-crimson hover:shadow-glow-crimson sm:-right-5"
-            style={{ clipPath: 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)' }}
-          >
-            <FiChevronRight size={20} />
-          </button>
-
-          <motion.div
-            ref={scrollRef}
-            layout
-            className="flex gap-5 overflow-x-auto pb-4 pt-2 scrollbar-hide snap-x snap-mandatory"
-            style={{ scrollbarWidth: 'none' }}
-          >
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  layout
-                  initial={{ opacity: 0, x: 80, rotate: 4 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                  exit={{ opacity: 0, x: -80, rotate: -4 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.5, delay: i * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
-                  className="w-[300px] flex-shrink-0 snap-start sm:w-[320px]"
-                >
-                  <MissionCard project={p} onOpen={() => setActive(p)} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          {/* Filter */}
+          <Reveal className="mb-8 flex flex-wrap justify-center gap-2">
+            {projectCategories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`clip-corner px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  filter === cat
+                    ? 'bg-gradient-to-r from-crimson to-blood text-white shadow-glow'
+                    : 'metal-card text-gray-400 hover:text-white'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </Reveal>
         </div>
+
+        {/* Horizontal card track — bergerak ke kiri sesuai scroll */}
+        <motion.div
+          style={{ x }}
+          className="flex gap-5 pl-6 sm:pl-[calc((100vw-72rem)/2+1.5rem)]"
+        >
+          {filtered.map((p, i) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ duration: 0.4, delay: i * 0.04 }}
+              className="w-[300px] flex-shrink-0 sm:w-[320px]"
+            >
+              <MissionCard project={p} onOpen={() => setActive(p)} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
 
       <MissionModal active={active} onClose={() => setActive(null)} />
