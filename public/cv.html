@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CV - Andy Siswanto Ahmad Budiyono</title>
     <meta name="description" content="Curriculum Vitae Andy Siswanto Ahmad Budiyono, Fullstack Developer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
     <style>
       :root {
         --ink: #1a1a1a;
@@ -69,12 +68,19 @@
       .skill-row { margin-bottom: 3px; }
       .skill-cat { font-weight: 700; }
       .muted { color: var(--muted); }
+      @media print {
+        body { background: #fff; font-size: 10.5pt; }
+        .toolbar { display: none; }
+        .page { box-shadow: none; margin: 0; max-width: 100%; padding: 10mm 0; }
+        .photo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        @page { size: A4; margin: 14mm 16mm; }
+      }
     </style>
   </head>
   <body>
     <div class="toolbar">
-      <p id="status">CV siap. Klik untuk mengunduh file PDF.</p>
-      <button id="dl" onclick="downloadPDF()">⬇ Download PDF</button>
+      <p>Klik tombol → pilih "Save as PDF" di dialog print.</p>
+      <button onclick="window.print()">⬇ Download PDF</button>
     </div>
 
     <main class="page" id="cv">
@@ -178,7 +184,5 @@
         </ul>
       </section>
     </main>
-
-    <script src="/cv-pdf.js"></script>
   </body>
 </html>
